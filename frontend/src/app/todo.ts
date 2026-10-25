@@ -15,22 +15,22 @@ export interface Todo{
 @Injectable({providedIn: 'root',})
 export class TodoService {
   private http=inject(HttpClient);
-  private apiUrl='htttp://localhost:8000/api/todos';
+  private apiUrl="http://localhost:8000/api/todos";
 
 
   getTodos(): Observable<Todo[]>{
-  return this.http.get<Todo[]>(this.apiUrl);
+  return this.http.get<Todo[]>(`${this.apiUrl}/`);
   }
 
   addTodo(title: string): Observable<Todo>{
-    return this.http.post<Todo>(this.apiUrl, {title, done: false});
+    return this.http.post<Todo>(`${this.apiUrl}/`, {title, done: false});
   }
 
   updateTodo(todo:Todo): Observable<Todo>{
-    return this.http.put<Todo>('${this.apiUrl}${id}/', todo);
+    return this.http.put<Todo>(`${this.apiUrl}/${todo.id}/`, todo);
   }
 
   deleteTodo(id:number): Observable<void>{
-    return this.http.delete<void>('${this.apiUrl}${id}/');
+    return this.http.delete<void>(`${this.apiUrl}/${id}/`);
   }
 }
